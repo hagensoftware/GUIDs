@@ -1,0 +1,136 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>WM.GUID.WebAPI</name>
+    </assembly>
+    <members>
+        <member name="T:WM.GUID.WebAPI.GUIDController">
+            <summary>
+            CRUD application for GUID Metadata
+            </summary>
+        </member>
+        <member name="M:WM.GUID.WebAPI.GUIDController.#ctor(Microsoft.Extensions.Logging.ILogger{WM.GUID.WebAPI.GUIDController},MediatR.IMediator)">
+            <summary>
+            GUID Controller constructor
+            </summary>
+            <param name="logger"></param>
+            <param name="mediator"></param>
+        </member>
+        <member name="M:WM.GUID.WebAPI.GUIDController.GetGUID(WM.GUID.Application.Queries.ReadGUID.GetGUIDQuery)">
+            <summary>
+                Get a GUID metadata record
+            </summary>
+            <remarks>
+                Sample request:
+                GET/guid
+                Id: 51164976C388410FA47202A11FFF4C2B   
+            </remarks>
+            <param name="query">GUID</param>
+            <response code="200">Returns a GUID DTO</response>
+            <response code="404">Not Found</response>
+            <response code="410">Gone</response>/// 
+            <response code="500">Returns a result ErrorInfo describing Internal Error</response>/// 
+            <returns>GuidDTO</returns>
+        </member>
+        <member name="M:WM.GUID.WebAPI.GUIDController.Create(WM.GUID.Application.Commands.CreateGUID.CreateGUIDCommand)">
+            <summary>
+                Creates a GUID Metadata record with a generated Key
+            </summary>
+            <remarks>
+                Sample request:
+                POST/guid
+                body:
+                {
+                "user":"John Doe",
+                }
+                *****************************************
+                Sample request:
+                POST/guid
+                body:
+                {
+                "user":"John Doe",
+                "expire":9999999
+                }
+            </remarks>
+            <param name="createCommand">Create GUID Metadata command</param>
+            <returns>GuidDTO</returns>
+            <response code="200">Returns a GUID DTO</response>
+            <response code="500">Returns a result ErrorInfo describing Internal Error</response>
+        </member>
+        <member name="M:WM.GUID.WebAPI.GUIDController.Create(System.String,WM.GUID.Application.Commands.CreateGUID.CreateGUIDCommand)">
+            <summary>
+                Creates a GUID Metadata record with an existing Key
+            </summary>
+            <remarks>
+                Sample request:
+                POST/guid
+                Id: 51164976C388410FA47202A11FFF4C2B
+                body:
+                {
+                "id":"51164976C388410FA47202A11FFF4C2B",
+                "user":"John Doe",
+                "expire":9999999999
+                }
+            </remarks>
+            <param name="createCommand">Create GUID Metadata command</param>
+            <param name="key">GUID key</param>/// 
+            <returns>GuidDTO</returns>
+            <response code="200">Returns a GUID DTO</response>
+            <response code="400">Not Found</response>
+            <response code="500">Returns a result ErrorInfo describing Internal Error</response>
+        </member>
+        <member name="M:WM.GUID.WebAPI.GUIDController.Update(System.String,WM.GUID.Application.Commands.UpdateGUID.UpdateGUIDCommand)">
+            <summary>
+                Update a Guid Metadata record
+            </summary>
+            <remarks>
+                Sample request:
+                PUT/guid
+                Id: 51164976C388410FA47202A11FFF4C2B
+                body:
+                {
+                "expire":"1000000000",
+                "user":"Jane Doe",
+                }
+                ****************************************
+                {
+                "expire":"9999999999",
+                "isDeleted":false
+                }
+                ****************************************
+                {
+                "user":"John Doe",
+                }
+                ****************************************
+                {
+                "isDeleted":false
+                }
+            </remarks>
+            <param name="updateCommand">Update GUID metadata command</param>
+            <param name="key">GUID key</param>/// 
+            <response code="200">Returns a GUID DTO</response>
+            <response code="400">Returns a result with Errors describing invalid state</response>
+            <response code="500">Returns a result ErrorInfo describing Internal Error</response>
+            <returns>GuidDTO</returns>
+        </member>
+        <member name="M:WM.GUID.WebAPI.GUIDController.Delete(System.String)">
+            <summary>
+                Delete a GUID metadata record
+            </summary>
+            <remarks>
+                Sample request:
+                Delete/GUID
+                Id: 51164976C388410FA47202A11FFF4C2B
+                body:
+                {
+                "id":"51164976C388410FA47202A11FFF4C2B",
+                }     
+            </remarks>
+            <param name="id">Delete GUID metadata Id</param>
+            <response code="204">No Content</response>
+            <response code="400">Returns a result with Errors describing invalid state</response>
+            <response code="500">Returns a result ErrorInfo describing Internal Error</response>
+            <returns>No Content</returns>
+        </member>
+    </members>
+</doc>
